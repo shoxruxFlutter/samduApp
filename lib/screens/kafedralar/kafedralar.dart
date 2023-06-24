@@ -44,7 +44,7 @@ class _KafedralarState extends State<Kafedralar> {
                 
         
         }
-        print(_kafedraList.length);
+ 
 
         // _loading = _loading ? !_loading : _loading;
       });
@@ -89,7 +89,7 @@ class _KafedralarState extends State<Kafedralar> {
               child: InkWell(
                 onTap: ()=> Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ListKafedralar(titleKafedra: widget.listKafedra[index], doc: widget.kafedraDoc[index])),
+                  MaterialPageRoute(builder: (context) => ListKafedralar(titleKafedra: widget.listKafedra[index], doc: widget.kafedraDoc[index], kafedraId: kafedra.id,)),
                   ),
                 splashColor: Colors.blue,
                 child: 

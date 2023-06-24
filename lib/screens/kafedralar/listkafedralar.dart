@@ -4,12 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:samduapp/screens/kafedralar/download.dart';
 import 'package:samduapp/screens/kafedralar/upload.dart';
 
-import 'matematika/matematika.dart';
+import '../../constant.dart';
+import '../../models/api_response.dart';
+import '../../models/teacher.dart';
+import '../../services/teacher_service.dart';
+import '../../services/user_service.dart';
+
 
 class ListKafedralar extends StatefulWidget {
   final String titleKafedra;
+  final int kafedraId;
   final List doc;
-  const ListKafedralar({super.key, required this.titleKafedra, required this.doc});
+  const ListKafedralar({super.key, required this.titleKafedra, required this.doc, required this.kafedraId});
 
   @override
   State<ListKafedralar> createState() => _ListKafedralarState();
@@ -17,27 +23,46 @@ class ListKafedralar extends StatefulWidget {
 
 class _ListKafedralarState extends State<ListKafedralar> {
 
-  
-//   listdoc(){
-//   List<Entry> data = [];
-//   for (var age in widget.doc) {
-//   data.add(
-//   Entry(
-//     age,
-//     <Entry>[
-//       Entry("Ilmiy-uslubiy ishlar"),
-//        Entry('Yuklamalar',  <Entry>[
-//           Entry("O'quv yuklamasi"),
-//           Entry("Adabiyotlar ro'yxati")
-//         ],
-//       )
-//     ],
-//   ));  
-//   }
+  final List<dynamic> _teacherList = [];
 
-//   return data;
-// }
+  Future<void> getTeacherAll() async {
+    // userId = await getUserId();
 
+  ApiResponse response = await getTeacher(widget.kafedraId);
+
+    if(response.error == null){
+
+      setState(() {
+        
+
+         for (var element in response.data as List<dynamic>) {
+
+              _teacherList.add(element);
+                
+        
+        }
+        print(_teacherList.length);
+
+        // _loading = _loading ? !_loading : _loading;
+      });
+    }
+    else if (response.error == unauthorized){
+      logout().then((value) => {
+         Navigator.of(context).pushReplacementNamed('/login')
+      });
+    }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('${response.error}'),
+      ));
+    }
+  }
+
+    @override
+  void initState() {
+    getTeacherAll();
+    super.initState();
+  }
 
 
   @override
@@ -52,20 +77,24 @@ class _ListKafedralarState extends State<ListKafedralar> {
       ),
        body: ListView.builder(
        padding: const EdgeInsets.all(15), 
-       itemCount: widget.doc.length,
-       itemBuilder: (BuildContext context, int index) => ExpansionTile(
-        title: Text(widget.doc[index], style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
-      
+       itemCount: _teacherList.length,
+       itemBuilder: (BuildContext context, int index) { 
+        Teacher teacher = _teacherList[index];
+        print(teacher);
+        return ExpansionTile(
+         
+        title: Text(teacher.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+       
         children:  [
           ListTile(
-            title: Text("O'quv reja"),
+            title: const Text("O'quv reja"),
              onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const Upload(titleFile: "O'quv Reja")));},
             ),
-          ListTile(title: Text("2"),  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const downloadFilee()));},)
+          ListTile(title: Text(teacher.name),  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const downloadFilee()));},)
         ],
      
 
-        )
+        );}
       ),
       
     );

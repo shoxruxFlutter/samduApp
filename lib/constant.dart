@@ -11,6 +11,7 @@ const postFileURL = '$baseURL/post-file';
 const commentsURL = '$baseURL/comments';
 const fakultetURL = '$baseURL/fakultet';
 const kafedraURL = '$baseURL/kafedra';
+const teacherURL = '$baseURL/teacher';
 
 // ----- Errors -----
 const serverError = 'Server error';
@@ -32,12 +33,12 @@ InputDecoration kInputDecoration(String label) {
 
 TextButton kTextButton(String label, Function onPressed){
   return TextButton(
-    child: Text(label, style: TextStyle(color: Colors.white),),
     style: ButtonStyle(
       backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue),
-      padding: MaterialStateProperty.resolveWith((states) => EdgeInsets.symmetric(vertical: 10))
+      padding: MaterialStateProperty.resolveWith((states) => const EdgeInsets.symmetric(vertical: 10))
     ),
     onPressed: () => onPressed(),
+    child: Text(label, style: const TextStyle(color: Colors.white),),
   );
 }
 
@@ -48,7 +49,7 @@ Row kLoginRegisterHint(String text, String label, Function onTap) {
     children: [
       Text(text),
       GestureDetector(
-        child: Text(label, style:TextStyle(color: Colors.blue)),
+        child: Text(label, style: const TextStyle(color: Colors.blue)),
         onTap: () => onTap()
       )
     ],
@@ -64,12 +65,12 @@ Expanded kLikeAndComment (int value, IconData icon, Color color, Function onTap)
         child: InkWell(
           onTap: () => onTap(),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical:10),
+            padding: const EdgeInsets.symmetric(vertical:10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(icon, size: 16, color: color,),
-                SizedBox(width:4),
+                const SizedBox(width:4),
                 Text('$value')
               ],
             ),
