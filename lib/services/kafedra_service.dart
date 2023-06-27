@@ -20,7 +20,8 @@ Future<ApiResponse> getKafedra(int fakultetId) async {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     });
-    
+     print(response.body);
+    print(response.statusCode);
     switch(response.statusCode){
       case 200:
         apiResponse.data = jsonDecode(response.body)['kafedra'].map((p) => Kafedra.fromJson(p)).toList();
@@ -37,8 +38,9 @@ Future<ApiResponse> getKafedra(int fakultetId) async {
     }
   }
   catch (e){
+      print(e);
     apiResponse.error = serverError;
   }
-
+  print(apiResponse.data);
   return apiResponse;
 }

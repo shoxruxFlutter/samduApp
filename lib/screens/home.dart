@@ -1,13 +1,13 @@
 import 'package:samduapp/models/post.dart';
 import 'package:samduapp/screens/category_screen.dart';
-import 'package:samduapp/screens/post_screen.dart';
-import 'package:samduapp/screens/profile.dart';
+
+
 import 'package:samduapp/screens/setting_screens.dart';
 import 'package:samduapp/services/user_service.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
-import 'post_form.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -27,9 +27,9 @@ void _onItemTapped(int index) {
 }
 
  List<Widget> screens = [
-    PostScreen(),
+
     const Category(),
-    const MyWidget(),
+    MyWidget(),
     
  ];
 

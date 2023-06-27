@@ -1,21 +1,14 @@
 import 'package:samduapp/pages/profile_page.dart';
-import 'package:samduapp/themes/Themes.dart';
 import 'package:samduapp/widgets/help_center.dart';
-import 'package:samduapp/widgets/profile.dart';
-import 'package:samduapp/widgets/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:samduapp/screens/Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:samduapp/models/ThemeNotifier.dart';
 import 'package:provider/provider.dart';
 import 'package:samduapp/widgets/modeee.dart';
 
 class MyWidget extends StatefulWidget {
-  const MyWidget({key});
-  
+
   @override
   State<MyWidget> createState() => _MyWidgetState();
 }
@@ -31,7 +24,6 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     setState(() {});
   }
@@ -46,10 +38,8 @@ class _MyWidgetState extends State<MyWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(children: [
             Row(
-              children: [
-                 
-                 
-                  Container(
+              children: [                
+                 Container(
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
@@ -75,7 +65,7 @@ class _MyWidgetState extends State<MyWidget> {
                   ),
                   child: IconButton(
                       icon: const Icon(Icons.chevron_right_outlined),
-                      color: Color.fromARGB(255, 31, 30, 30),
+                      color: const Color.fromARGB(255, 31, 30, 30),
                       onPressed: () async {
                         WidgetsFlutterBinding
                             .ensureInitialized(); //required to use platform channels to call native code.
@@ -99,7 +89,7 @@ class _MyWidgetState extends State<MyWidget> {
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color.fromARGB(255, 8, 184, 146),
+                    color: const Color.fromARGB(255, 8, 184, 146),
                   ),
                   child: const Icon(
                     Ionicons.person,
@@ -120,38 +110,12 @@ class _MyWidgetState extends State<MyWidget> {
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.chevron_right_outlined),
-                    color: Color.fromARGB(255, 31, 30, 30),
+                    color: const Color.fromARGB(255, 31, 30, 30),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MaterialApp(
                                 title: 'User Profile',
                                 debugShowCheckedModeBanner: false,
-
-                                // theme: ThemeData(
-
-                                //     primaryColor: Colors.black,
-                                //     fontFamily: 'Roboto',
-                                //     elevatedButtonTheme:
-                                //         ElevatedButtonThemeData(
-                                //             style: ElevatedButton.styleFrom(
-                                //                 primary: Colors.black,
-                                //                 shadowColor: Colors.grey,
-                                //                 elevation: 20,
-                                //                 shape: RoundedRectangleBorder(
-                                //                     borderRadius:
-                                //                         BorderRadius.all(
-                                //                             Radius.circular(
-                                //                                 0.0))))),
-                                //     inputDecorationTheme: InputDecorationTheme(
-                                //         border: OutlineInputBorder(
-                                //             borderRadius:
-                                //                 BorderRadius.circular(0.0))),
-                                //     textButtonTheme: TextButtonThemeData(
-                                //       style: TextButton.styleFrom(
-                                //         alignment: Alignment.centerLeft,
-                                //         primary: Colors.black,
-                                //       ),
-                                //     )),
                                 theme: context.watch<ThemeProvider>().getTheme,
                                 home: ProfilePage(),
                               )));
@@ -169,7 +133,7 @@ class _MyWidgetState extends State<MyWidget> {
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color.fromARGB(255, 209, 154, 4),
+                    color: const Color.fromARGB(255, 209, 154, 4),
                   ),
                   child: const Icon(
                     Ionicons.newspaper_outline,
@@ -190,7 +154,7 @@ class _MyWidgetState extends State<MyWidget> {
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.chevron_right_outlined),
-                    color: Color.fromARGB(255, 31, 30, 30),
+                    color: const Color.fromARGB(255, 31, 30, 30),
                     onPressed: () {},
                   ),
                   // child: const Icon(Ionicons.chevron_forward_outline),
@@ -205,7 +169,7 @@ class _MyWidgetState extends State<MyWidget> {
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color.fromARGB(255, 6, 216, 231),
+                    color: const Color.fromARGB(255, 6, 216, 231),
                   ),
                   child: const Icon(
                     Ionicons.help_circle_outline,
@@ -226,7 +190,7 @@ class _MyWidgetState extends State<MyWidget> {
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.chevron_right_outlined),
-                    color: Color.fromARGB(255, 31, 30, 30),
+                    color: const Color.fromARGB(255, 31, 30, 30),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => HelpCenter()));

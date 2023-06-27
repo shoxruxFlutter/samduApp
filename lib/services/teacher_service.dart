@@ -21,6 +21,7 @@ Future<ApiResponse> getTeacher(int kafedraId) async {
       'Authorization': 'Bearer $token'
     });
     print(response.body);
+    print(response.statusCode);
     switch(response.statusCode){
       case 200:
         apiResponse.data = jsonDecode(response.body)['teacher'].map((p) => Teacher.fromJson(p)).toList();
@@ -37,8 +38,9 @@ Future<ApiResponse> getTeacher(int kafedraId) async {
     }
   }
   catch (e){
+    print(e);
     apiResponse.error = serverError;
   }
-
+  print(apiResponse.data);
   return apiResponse;
 }

@@ -1,6 +1,5 @@
 class Teacher {
   int id;
-
   String name;
 
   Teacher({required this.id, required this.name});

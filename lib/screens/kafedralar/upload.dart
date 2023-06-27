@@ -1,13 +1,10 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'package:http/http.dart' as http;
-
 import '../../services/user_service.dart';
 
 
@@ -28,7 +25,6 @@ class _UploadState extends State<Upload> {
   double progress = 0.0;
   String link = '';
   Future<int> fileUserId = getUserId();
-
   var _progress = "";
   final _dio = Dio();
   String _fileName = '';
@@ -43,21 +39,19 @@ class _UploadState extends State<Upload> {
 
 Future<void> downloadFile() async {
 
-    final url = "http://10.0.2.2:8000/api/downloadFile";
+    const url = "http://10.0.2.2:8000/api/downloadFile";
     String token = await getToken();
     
     final params = {
       "category_file": widget.titleFile,
     };
-
-    
-
+ 
     final directory = await getExternalStorageDirectory();
+    print(directory);
     final filePath = '${directory?.path}/${widget.titleFile}.pdf';
     final file = File(filePath);
 
     try {
-      
       final response = await _dio.download(
         url,
         filePath,
@@ -83,25 +77,18 @@ Future<void> downloadFile() async {
 
 Future upload() async {
 
-
   FilePickerResult? result = await FilePicker.platform.pickFiles();
   if(result!=null){
-    // File file = File(result.files.single.path ?? " ");
     PlatformFile file = result.files.first;
     print(file.path);
-    // String fileName = file.path.split('/').last;
     String? filepath = file.path;
     String? fileExtension = file.extension;
-   FormData data = FormData.fromMap({
-
+    FormData data = FormData.fromMap({
       "file": await MultipartFile.fromFile(
         filepath!,
         filename: '${widget.titleFile}.${fileExtension!}',
         contentType: MediaType("image", "jpeg"),),
-        'category_file': widget.titleFile,
-
-
-    
+        'category_file': widget.titleFile,    
    });
 
   String token = await getToken();
@@ -157,32 +144,12 @@ void _checkFileExists() async {
     });
 }
 
-Future<void> showFile() async {
-  try {
-    final directory = await getExternalStorageDirectory();
-    final filePath = '${directory?.path}/${widget.titleFile}.pdf';
-    final file = File(filePath);
-    final fileExists = await file.exists();
-    if (fileExists) {
-      final bytes = await file.readAsBytes();
-      final tempDir = await getTemporaryDirectory();
-      final tempPath = '${tempDir.path}/${widget.titleFile}.pdf';
-      await File(tempPath).writeAsBytes(bytes);
 
-      final channel = MethodChannel('channel');
-      await channel.invokeMethod('openFile', {'path': tempPath});
-    } else {
-      print('File does not exist');
-    }
-  } catch (e) {
-    print('Error opening file: $e');
-  }
-}
  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Screen'),
+        title: const Text('My Screen'),
       ),
       body: Center(
         child: Column(
@@ -191,18 +158,18 @@ Future<void> showFile() async {
             if (_fileExists)
               Text(
                 'File name: $_fileName',
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_fileExists)
               ElevatedButton(
                 onPressed: downloadFile,
-                child: Text('Download'),
+                child: const Text('Download'),
               ),
             if (!_fileExists)
               ElevatedButton(
                 onPressed: upload,
-                child: Text('Upload'),
+                child: const Text('Upload'),
               ),
           ],
         ),

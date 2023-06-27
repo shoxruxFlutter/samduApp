@@ -9,18 +9,20 @@ class MyWidget12 extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget12> {
-  @override
+  
   bool _iconBool = false;
-  IconData _iconLight = Icons.nights_stay;
-  IconData _iconDark = Icons.wb_sunny;
-  ThemeData _themeLight = ThemeData(
+  final IconData _iconLight = Icons.nights_stay;
+  final IconData _iconDark = Icons.wb_sunny;
+  final ThemeData _themeLight = ThemeData(
     primaryColor: Colors.amberAccent,
     brightness: Brightness.light,
   );
-  ThemeData _themeDark = ThemeData(
+  final ThemeData _themeDark = ThemeData(
     primaryColor: Colors.redAccent,
     brightness: Brightness.dark,
   );
+
+  @override
   Widget build(BuildContext context) {
   return MaterialApp(
     theme: _iconBool ? _themeDark : _themeLight,
@@ -55,7 +57,7 @@ class _MyWidgetState extends State<MyWidget12> {
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Color.fromARGB(255, 7, 3, 3),
+                      color: const Color.fromARGB(255, 7, 3, 3),
                     ),
                     child: const Icon(
                       Ionicons.moon_outline,
@@ -68,51 +70,14 @@ class _MyWidgetState extends State<MyWidget12> {
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const Spacer(),
-                  Container(
-                    child: IconButton(
-                          icon: Icon(_iconBool ? _iconDark : _iconLight),
-                          onPressed: () {
-                            setState(() {
-                              _iconBool = !_iconBool;
-                            });
-                          },
-                        )
-                  )
-                  // @override
-                  // Widget build(BuildContext context) {
-                  //   return MaterialApp(
-                  //     theme: _iconBool ? _themeDark : _themeLight,
-                  //     home: Scaffold(
-                  //       appBar: AppBar(
-                  //         title: Text(_iconBool ? "Dark Mode" : "Light Mode"),
-                  //         centerTitle: true,
-                  //       ),
-                  //       body: Center(
-                  //           child: IconButton(
-                  //         icon: Icon(_iconBool ? _iconDark : _iconLight),
-                  //         onPressed: () {
-                  //           setState(() {
-                  //             _iconBool = !_iconBool;
-                  //           });
-                  //         },
-                  //       )),
-                  //     ),
-                  //   );
-                  // }
-                  // Container(
-                  //   width: 50,
-                  //   height: 50,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.grey.shade200,
-                  //     borderRadius: BorderRadius.circular(15),
-                  //   ),
-                  //   child: IconButton(
-                  //     icon: const Icon(Icons.chevron_right_outlined),
-                  //     color: Color.fromARGB(255, 31, 30, 30),
-                  //     onPressed: () {},
-                  //   ),
-                  //   // child: const Icon(Ionicons.chevron_forward_outline),
-                  // ),
+                  IconButton(
+                        icon: Icon(_iconBool ? _iconDark : _iconLight),
+                        onPressed: () {
+                          setState(() {
+                            _iconBool = !_iconBool;
+                          });
+                        },
+                      )               
                 ],
               ),
             ]),
