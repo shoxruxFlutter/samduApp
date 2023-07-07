@@ -6,6 +6,8 @@ import '../screens/home.dart';
 
 
 class MainWidget99 extends StatelessWidget {
+  const MainWidget99({super.key});
+
   @override
   
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class MainWidget99 extends StatelessWidget {
     return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
       return MaterialApp(
         title: 'Flutter Theme',
-        home: Home(),
+        home: const Home(),
         theme: themeProvider.getTheme,
         debugShowCheckedModeBanner: false,
       );

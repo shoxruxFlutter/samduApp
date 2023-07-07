@@ -32,10 +32,10 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: context.watch<ThemeProvider>().getTheme,
       routes: {
-        '/': (context) => Loading(),
-        '/home_screen': (context) => Home(),
-        '/register': (context) => Register(),
-        '/login': (context) => Login(),
+        '/': (context) => const Loading(),
+        '/home_screen': (context) => const Home(),
+        '/register': (context) => const Register(),
+        '/login': (context) => const Login(),
       },
     );
   }

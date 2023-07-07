@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
 import 'package:samduapp/models/api_response.dart';
 import 'package:samduapp/models/user.dart';
 import 'package:samduapp/services/user_service.dart';
@@ -5,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant.dart';
-import 'home.dart';
-import 'register.dart';
+
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -46,7 +49,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
         centerTitle: true,
       ),
       body: Form(

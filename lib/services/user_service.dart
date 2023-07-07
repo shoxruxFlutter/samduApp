@@ -135,7 +135,7 @@ Future<ApiResponse> updateUser(String name, String? image) async {
         apiResponse.error = unauthorized;
         break;
       default:
-        print(response.body);
+
         apiResponse.error = somethingWentWrong;
         break;
     }

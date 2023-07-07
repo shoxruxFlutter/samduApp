@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:samduapp/models/api_response.dart';
-import 'package:samduapp/models/post.dart';
+
 import 'package:samduapp/services/user_service.dart';
 import 'package:http/http.dart' as http;
 

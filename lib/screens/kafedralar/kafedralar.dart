@@ -1,4 +1,6 @@
-import 'dart:ffi';
+// ignore_for_file: use_build_context_synchronously
+
+
 
 import 'package:flutter/material.dart';
 import 'package:samduapp/services/kafedra_service.dart';
@@ -13,11 +15,11 @@ import 'listkafedralar.dart';
 class Kafedralar extends StatefulWidget {
    final String screenTitle;
    final int fakultetId;
-   final List listKafedra;
-   final List kafedraDoc;
 
 
-const Kafedralar({super.key, required this.screenTitle, required this.listKafedra, required this.kafedraDoc, required this.fakultetId});
+
+
+const Kafedralar({super.key, required this.screenTitle, required this.fakultetId});
 
   @override
   State<Kafedralar> createState() => _KafedralarState();

@@ -1,8 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 
 
 class MyApp123 extends StatelessWidget {
+  const MyApp123({super.key});
+
   @override
   Widget build(BuildContext context) {
     return   MaterialApp(
@@ -11,13 +15,13 @@ class MyApp123 extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home:   MyHomePage(title: ''),
+      home:   const MyHomePage(title: ''),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title=''}) : super(key: key);
+  const MyHomePage({Key? key, this.title=''}) : super(key: key);
 
   final String title;
 
@@ -28,8 +32,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
     return Stack(
       children: <Widget>[
@@ -47,17 +51,17 @@ class _MyHomePageState extends State<MyHomePage> {
               Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: EdgeInsets.only(top: _height / 15),
+                  padding: EdgeInsets.only(top: height / 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       CircleAvatar(
                         backgroundImage:
                             const AssetImage('assets/profile_img.jpeg'),
-                        radius: _height / 10,
+                        radius: height / 10,
                       ),
                       SizedBox(
-                        height: _height / 30,
+                        height: height / 30,
                       ),
                       const Text(
                         'Sadiq Mehdi',
@@ -71,16 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: _height / 2.2),
+                padding: EdgeInsets.only(top: height / 2.2),
                 child: Container(
                   color: Colors.white,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: _height / 2.6,
-                    left: _width / 20,
-                    right: _width / 20),
+                    top: height / 2.6,
+                    left: width / 20,
+                    right: width / 20),
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -93,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 offset:   Offset(0.0, 2.0))
                           ]),
                       child: Padding(
-                        padding: EdgeInsets.all(_width / 20),
+                        padding: EdgeInsets.all(width / 20),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -104,25 +108,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: _height / 20),
+                      padding: EdgeInsets.only(top: height / 20),
                       child:   Column(
                         children: <Widget>[
                           infoChild(
-                              _width, Icons.email, 'zulfiqar108@gmail.com'),
-                          infoChild(_width, Icons.call, '+12-1234567890'),
+                              width, Icons.email, 'zulfiqar108@gmail.com'),
+                          infoChild(width, Icons.call, '+12-1234567890'),
                           infoChild(
-                              _width, Icons.group_add, 'Add to group'),
-                          infoChild(_width, Icons.chat_bubble,
+                              width, Icons.group_add, 'Add to group'),
+                          infoChild(width, Icons.chat_bubble,
                               'Show all comments'),
                             Padding(
-                            padding:   EdgeInsets.only(top: _height / 30),
+                            padding:   EdgeInsets.only(top: height / 30),
                             child:   Container(
-                              width: _width / 3,
-                              height: _height / 20,
+                              width: width / 3,
+                              height: height / 20,
                               decoration:   BoxDecoration(
                                   color: const Color(0xFF26CBE6),
                                   borderRadius:   BorderRadius.all(
-                                        Radius.circular(_height / 40)),
+                                        Radius.circular(height / 40)),
                                   boxShadow: const [
                                       BoxShadow(
                                         color: Colors.black87,
@@ -188,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
           onTap: () {
-            print('Info Object selected');
+
           },
         ),
       );

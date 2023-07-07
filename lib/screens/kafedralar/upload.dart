@@ -25,7 +25,6 @@ class _UploadState extends State<Upload> {
   double progress = 0.0;
   String link = '';
   Future<int> fileUserId = getUserId();
-  var _progress = "";
   final _dio = Dio();
   String _fileName = '';
  
@@ -47,11 +46,11 @@ Future<void> downloadFile() async {
     };
  
     final directory = await getExternalStorageDirectory();
-    print(directory);
+
     final filePath = '${directory?.path}/${widget.titleFile}.pdf';
-    final file = File(filePath);
 
     try {
+      // ignore: unused_local_variable
       final response = await _dio.download(
         url,
         filePath,
@@ -62,15 +61,15 @@ Future<void> downloadFile() async {
         onReceiveProgress: (receivedBytes, totalBytes) {
           if (totalBytes != -1) {
             setState(() {
-              _progress = "Downloaded ${(receivedBytes / totalBytes * 100).toStringAsFixed(0)}%";
             });
           }
         },
       );
 
-      print(response.statusCode);
+ 
+    // ignore: empty_catches
     } catch (e) {
-      print(e);
+ 
     }
 
   }
@@ -80,7 +79,6 @@ Future upload() async {
   FilePickerResult? result = await FilePicker.platform.pickFiles();
   if(result!=null){
     PlatformFile file = result.files.first;
-    print(file.path);
     String? filepath = file.path;
     String? fileExtension = file.extension;
     FormData data = FormData.fromMap({
@@ -93,6 +91,7 @@ Future upload() async {
 
   String token = await getToken();
    
+// ignore: unused_local_variable
 var response = await dio.post(
 "http://10.0.2.2:8000/api/upload-file", 
 data: data,
@@ -103,14 +102,14 @@ options: Options(
   
 ),
  onSendProgress: (int sent, int total){
-  print("$sent, $total");
+  // print("$sent, $total");
 });
 setState(() {
     _checkFileExists();
   });
 }
 else{
-  print("result null");
+  // print("result null");
 }
 
 }
@@ -131,8 +130,7 @@ void _checkFileExists() async {
         contentType: 'application/json',
     )
       );
-      print(response.data);
-      print(232);
+
      setState(() {
       if (response.data == "true"){
       _fileExists = true;
@@ -140,7 +138,7 @@ void _checkFileExists() async {
       if (_fileExists) {
         _fileName = '${widget.titleFile}.pdf';
       }
-      print(_fileExists);
+      // print(_fileExists);
     });
 }
 

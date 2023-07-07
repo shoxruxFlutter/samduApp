@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 import 'package:samduapp/screens/kafedralar/upload.dart';
@@ -63,7 +65,6 @@ class _ListKafedralarState extends State<ListKafedralar> {
        itemCount: _teacherList.length,
        itemBuilder: (BuildContext context, int index) { 
         Teacher teacher = _teacherList[index];
-        print(teacher);
         return ExpansionTile(         
         title: Text(teacher.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),       
         children:  [

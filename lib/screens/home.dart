@@ -1,4 +1,6 @@
-import 'package:samduapp/models/post.dart';
+// ignore_for_file: library_private_types_in_public_api
+
+
 import 'package:samduapp/screens/category_screen.dart';
 
 
@@ -6,10 +8,11 @@ import 'package:samduapp/screens/setting_screens.dart';
 import 'package:samduapp/services/user_service.dart';
 import 'package:flutter/material.dart';
 
-import 'login.dart';
 
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -29,7 +32,7 @@ void _onItemTapped(int index) {
  List<Widget> screens = [
 
     const Category(),
-    MyWidget(),
+    const MyWidget(),
     
  ];
 
@@ -40,7 +43,7 @@ void _onItemTapped(int index) {
         title: const Text('Samdu App'),
         actions: [
           IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: (){
               logout().then((value) => {
                    Navigator.of(context).pushReplacementNamed('/login')

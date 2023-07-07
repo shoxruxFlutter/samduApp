@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import '/themes/Themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ThemeProvider extends ChangeNotifier {
   late ThemeData _selectedTheme;
   late SharedPreferences prefs;
-  ThemeProvider({bool isDark: false}) {
-    this._selectedTheme = isDark ? darkTheme : lightTheme;
+  ThemeProvider({bool isDark = false}) {
+    _selectedTheme = isDark ? darkTheme : lightTheme;
   }
 
   ThemeData get getTheme => _selectedTheme;

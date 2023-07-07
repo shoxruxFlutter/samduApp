@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:samduapp/models/api_response.dart';
 import 'package:samduapp/models/kafedra.dart';
-import 'package:samduapp/models/post.dart';
+
 import 'package:samduapp/services/user_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant.dart';
-import '../models/fakulet.dart';
-import 'fakultet_service.dart';
+
+
 
 // get all posts
 Future<ApiResponse> getKafedra(int fakultetId) async {
@@ -20,8 +20,7 @@ Future<ApiResponse> getKafedra(int fakultetId) async {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     });
-     print(response.body);
-    print(response.statusCode);
+
     switch(response.statusCode){
       case 200:
         apiResponse.data = jsonDecode(response.body)['kafedra'].map((p) => Kafedra.fromJson(p)).toList();
@@ -38,9 +37,9 @@ Future<ApiResponse> getKafedra(int fakultetId) async {
     }
   }
   catch (e){
-      print(e);
+
     apiResponse.error = serverError;
   }
-  print(apiResponse.data);
+
   return apiResponse;
 }

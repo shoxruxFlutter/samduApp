@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:samduapp/pages/profile_page.dart';
 import 'package:samduapp/widgets/help_center.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +10,14 @@ import 'package:provider/provider.dart';
 import 'package:samduapp/widgets/modeee.dart';
 
 class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
 
   @override
   State<MyWidget> createState() => _MyWidgetState();
 }
 
 class _MyWidgetState extends State<MyWidget> {
-  @override
-  late ThemeData _selectedTheme;
 
   // dynamic help() {
   //   // runApp(MaterialPageRoute(builder: (context) => const HelpCenter()));
@@ -28,9 +30,8 @@ class _MyWidgetState extends State<MyWidget> {
     setState(() {});
   }
 
+  @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider =
-        Provider.of<ThemeProvider>(context, listen: true);
     return Scaffold(
 
       body: SafeArea(
@@ -69,12 +70,12 @@ class _MyWidgetState extends State<MyWidget> {
                       onPressed: () async {
                         WidgetsFlutterBinding
                             .ensureInitialized(); //required to use platform channels to call native code.
+                        // ignore: unused_local_variable
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        bool themeBool = prefs.getBool("isDark") ?? false;
 
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MainWidget99(),
+                          builder: (context) => const MainWidget99(),
                         ));
                       }),
                   // child: const Icon(Ionicons.chevron_forward_outline),
@@ -117,7 +118,7 @@ class _MyWidgetState extends State<MyWidget> {
                                 title: 'User Profile',
                                 debugShowCheckedModeBanner: false,
                                 theme: context.watch<ThemeProvider>().getTheme,
-                                home: ProfilePage(),
+                                home: const ProfilePage(),
                               )));
                     },
                   ),
@@ -193,7 +194,7 @@ class _MyWidgetState extends State<MyWidget> {
                     color: const Color.fromARGB(255, 31, 30, 30),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => HelpCenter()));
+                          builder: (context) => const HelpCenter()));
                     },
                   ),
                   // child: const Icon(Ionicons.chevron_forward_outline),

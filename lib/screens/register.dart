@@ -1,6 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:samduapp/models/api_response.dart';
 import 'package:samduapp/models/user.dart';
-import 'package:samduapp/screens/home.dart';
+
 import 'package:samduapp/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,8 @@ import '../constant.dart';
 import 'login.dart';
 
 class Register extends StatefulWidget {
+  const Register({super.key});
+
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -49,7 +53,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: const Text('Register'),
         centerTitle: true,
       ),
       body: Form(
@@ -62,30 +66,30 @@ class _RegisterState extends State<Register> {
               validator: (val) => val!.isEmpty ? 'Invalid name' : null,
               decoration: kInputDecoration('Name')
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             TextFormField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               validator: (val) => val!.isEmpty ? 'Invalid email address' : null,
               decoration: kInputDecoration('Email')
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             TextFormField(
               controller: passwordController,
               obscureText: true,
               validator: (val) => val!.length < 6 ? 'Required at least 6 chars' : null,
               decoration: kInputDecoration('Password')
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             TextFormField(
               controller: passwordConfirmController,
               obscureText: true,
               validator: (val) => val != passwordController.text ? 'Confirm password does not match' : null,
               decoration: kInputDecoration('Confirm password')
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             loading ? 
-              Center(child: CircularProgressIndicator())
+              const Center(child: CircularProgressIndicator())
             : kTextButton('Register', () {
                 if(formKey.currentState!.validate()){
                   setState(() {
@@ -95,9 +99,9 @@ class _RegisterState extends State<Register> {
                 }
               },
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             kLoginRegisterHint('Already have an account? ', 'Login', (){
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false);
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>const Login()), (route) => false);
             })
           ],
         ),

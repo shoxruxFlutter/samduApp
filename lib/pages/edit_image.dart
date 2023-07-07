@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, depend_on_referenced_packages
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -26,9 +28,9 @@ class _EditImagePageState extends State<EditImagePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
               width: 330,
-              child: const Text(
+              child: Text(
                 "Upload a photo of yourself:",
                 style: TextStyle(
                   fontSize: 23,
@@ -36,7 +38,7 @@ class _EditImagePageState extends State<EditImagePage> {
                 ),
               )),
           Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20),
               child: SizedBox(
                   width: 330,
                   child: GestureDetector(
@@ -57,7 +59,7 @@ class _EditImagePageState extends State<EditImagePage> {
                     child: Image.network(user.image),
                   ))),
           Padding(
-              padding: EdgeInsets.only(top: 40),
+              padding: const EdgeInsets.only(top: 40),
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(

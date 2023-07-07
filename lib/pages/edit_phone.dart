@@ -24,12 +24,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
   }
 
   void updateUserValue(String phone) {
-    String formattedPhoneNumber = "(" +
-        phone.substring(0, 3) +
-        ") " +
-        phone.substring(3, 5) +
-        "-" +
-        phone.substring(5, phone.length);
+    String formattedPhoneNumber = "(${phone.substring(0, 3)}) ${phone.substring(3, 5)}-${phone.substring(5, phone.length)}";
     user.phone = formattedPhoneNumber;
   }
 
@@ -43,15 +38,15 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                     width: 320,
-                    child: const Text(
+                    child: Text(
                       "What's Your Phone Number?",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     )),
                 Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: const EdgeInsets.only(top: 40),
                     child: SizedBox(
                         height: 100,
                         width: 320,
@@ -73,7 +68,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                           ),
                         ))),
                 Padding(
-                    padding: EdgeInsets.only(top: 150),
+                    padding: const EdgeInsets.only(top: 150),
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 // import 'package:accaunt/widgets/.dart';
 class MyWidget12 extends StatefulWidget {
-  const MyWidget12({key});
+  const MyWidget12({super.key});
 
   @override
   State<MyWidget12> createState() => _MyWidgetState();

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -12,6 +14,8 @@ import 'package:samduapp/user/user_data.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -29,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 0,
             toolbarHeight: 10,
           ),
-          Center(
+          const Center(
               child: Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Text(
@@ -42,18 +46,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   ))),
           InkWell(
               onTap: () {
-                navigateSecondPage(EditImagePage());
+                navigateSecondPage(const EditImagePage());
               },
               child: DisplayImage(
                 imagePath: user.image,
                 onPressed: () {},
               )),
-          buildUserInfoDisplay(user.name, 'Name', EditNameFormPage()),
-          buildUserInfoDisplay(user.phone, 'Phone', EditPhoneFormPage()),
-          buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
+          buildUserInfoDisplay(user.name, 'Name', const EditNameFormPage()),
+          buildUserInfoDisplay(user.phone, 'Phone', const EditPhoneFormPage()),
+          buildUserInfoDisplay(user.email, 'Email', const EditEmailFormPage()),
           Expanded(
-            child: buildAbout(user),
             flex: 4,
+            child: buildAbout(user),
           )
         ],
       ),
@@ -63,25 +67,25 @@ class _ProfilePageState extends State<ProfilePage> {
   // Widget builds the display item with the proper formatting to display the user's info
   Widget buildUserInfoDisplay(String getValue, String title, Widget editPage) =>
       Padding(
-          padding: EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 1,
               ),
               Container(
                   width: 350,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                     color: Colors.grey,
@@ -95,9 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                             child: Text(
                               getValue,
-                              style: TextStyle(fontSize: 16, height: 1.4),
+                              style: const TextStyle(fontSize: 16, height: 1.4),
                             ))),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_right,
                       color: Colors.grey,
                       size: 40.0,
@@ -108,11 +112,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Widget builds the About Me Section
   Widget buildAbout(User user) => Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Tell Us About Yourself',
             style: TextStyle(
               fontSize: 15,
@@ -124,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
               width: 350,
               height: 200,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(
                 color: Colors.grey,
@@ -134,20 +138,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 Expanded(
                     child: TextButton(
                         onPressed: () {
-                          navigateSecondPage(EditDescriptionFormPage());
+                          navigateSecondPage(const EditDescriptionFormPage());
                         },
                         child: Padding(
-                            padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+                            padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
                             child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
                                   user.aboutMeDescription,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     height: 1.4,
                                   ),
                                 ))))),
-                Icon(
+                const Icon(
                   Icons.keyboard_arrow_right,
                   color: Colors.grey,
                   size: 40.0,

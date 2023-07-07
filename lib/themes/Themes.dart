@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 //LightTheme
@@ -8,12 +10,12 @@ ThemeData lightTheme = ThemeData(
   
 );
 
-TextStyle lightTextStyle = TextStyle(
+TextStyle lightTextStyle = const TextStyle(
   fontSize: 20,
   color: Colors.black,
 );
 TextTheme lightTextTheme = TextTheme(
-  bodyText1: lightTextStyle,
+  bodyLarge: lightTextStyle,
 );
 
 //DarkTheme
@@ -22,10 +24,10 @@ ThemeData darkTheme = ThemeData(
   primaryColor: Colors.black,
 );
 
-TextStyle darkTextStyle = TextStyle(
+TextStyle darkTextStyle = const TextStyle(
   fontSize: 20,
   color: Colors.white,
 );
 TextTheme darkTextTheme = TextTheme(
-  bodyText1: lightTextStyle,
+  bodyLarge: lightTextStyle,
 );
