@@ -10,7 +10,8 @@ import '../../services/user_service.dart';
 
 class Upload extends StatefulWidget {
   final String titleFile;
-  const Upload({super.key, required this.titleFile});
+  final int teacherId;
+  const Upload({super.key, required this.titleFile, required this.teacherId});
 
   @override
   State<Upload> createState() => _UploadState();
@@ -27,8 +28,11 @@ class _UploadState extends State<Upload> {
   Future<int> fileUserId = getUserId();
   final _dio = Dio();
   String _fileName = '';
- 
+  final List<String> category = ['1', '2', '3'];
   bool _fileExists = false;
+  final fanVasoat = '1';
+  final oquvDastur = '2';
+  final ishchiDastur = '3';
 
   @override
   void initState() {
@@ -116,13 +120,14 @@ else{
 
 void _checkFileExists() async {
   String token = await getToken();
-  final params = {
-      "category_file": widget.titleFile,
-    };
+  int teacherId = widget.teacherId;
+  String nameFile = widget.titleFile;
 
-    final response = await Dio().get(
-    'http://10.0.2.2:8000/api/checkingFile',  
-    queryParameters: {'category_file': params, },
+    
+        final response = await Dio().get(
+    'http://10.0.2.2:8000/api/checkingFile/$nameFile',  
+      //'http://10.0.2.2:8000/api/checkingFile?$teacherId&category=$category',  
+
     options: Options(
         headers: {'Authorization': 'Bearer $token'},
         followRedirects: false,
@@ -131,23 +136,30 @@ void _checkFileExists() async {
     )
       );
 
+
      setState(() {
       if (response.data == "true"){
       _fileExists = true;
+      
       }
       if (_fileExists) {
         _fileName = '${widget.titleFile}.pdf';
       }
-      // print(_fileExists);
+      print(_fileExists);
     });
-}
+
+    }
+   
+    
+
+
 
 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Screen'),
+        title: const Text('Yuklamalar'),
       ),
       body: Center(
         child: Column(
@@ -155,7 +167,7 @@ void _checkFileExists() async {
           children: <Widget>[
             if (_fileExists)
               Text(
-                'File name: $_fileName',
+                'Faylning nomi: $_fileName',
                 style: const TextStyle(fontSize: 20),
               ),
             const SizedBox(height: 20),
@@ -169,11 +181,51 @@ void _checkFileExists() async {
                 onPressed: upload,
                 child: const Text('Upload'),
               ),
+ 
+              
           ],
         ),
       ),
     );
   }
+//     );
+// return Scaffold(
+//         appBar: AppBar(
+//         title: const Text('Yuklamalar'),
+//         backgroundColor: Colors.blue,
+//       ),
+//        body: ListView.builder(
+        
+//        padding: const EdgeInsets.all(15), 
+//        itemCount: category.length,
+//        itemBuilder: (BuildContext context, int index) { 
+//         final fileName = category[index];
+//         final existFile =  _checkFileExists(fileName);
+
+//            return Column(
+//              children: [
+//              if (existFile == true)
+//              Text(
+//                'Faylning nomi: $_fileName',
+//                style: const TextStyle(fontSize: 20),
+//              ),
+//               const SizedBox(height: 20),
+//            if (existFile == true)
+//              ElevatedButton(
+//                onPressed: downloadFile,
+//                child: const Text('Download'),
+//              ),
+//            if (existFile == false)
+//              ElevatedButton(
+//                onPressed: upload,
+//                child: const Text('Upload'),
+//              ),
+//              ]
+//            );
+//        }
+   
+//       ),      
+//     );
+
+
 }
-
-

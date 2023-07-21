@@ -69,10 +69,14 @@ class _ListKafedralarState extends State<ListKafedralar> {
         title: Text(teacher.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),       
         children:  [
           ListTile(
-            title: const Text("O'quv reja"),
-             onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const Upload(titleFile: "O'quv Reja")));},
+            title: const Text("Yuklama"),
+             onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Upload(titleFile: "O'quv Reja", teacherId: teacher.id)));},
             ),
-          ListTile(title: Text(teacher.name),  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => const Upload(titleFile: 'download',)));},)
+          ListTile(title: const Text("Professor o`qituvchilarni anketa ma`lumotlari"),  onTap: () {},),
+          ListTile(
+            title: const Text("Ma`lumotlar va bilimlar bazasini shakillantirish"),
+             onTap: () {},
+            ),
         ], 
         );}
       ),      
