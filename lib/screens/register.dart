@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:samduapp/models/api_response.dart';
-import 'package:samduapp/models/user.dart';
+import 'package:samduapp/domain/entity/user.dart';
 
 import 'package:samduapp/services/user_service.dart';
 import 'package:flutter/material.dart';
@@ -20,24 +20,22 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool loading = false;
-  TextEditingController
-    nameController = TextEditingController(), 
-    emailController = TextEditingController(),
-    passwordController = TextEditingController(),
-    passwordConfirmController = TextEditingController();
+  TextEditingController nameController = TextEditingController(),
+      emailController = TextEditingController(),
+      passwordController = TextEditingController(),
+      passwordConfirmController = TextEditingController();
 
-  void _registerUser () async {
-    ApiResponse response = await register(nameController.text, emailController.text, passwordController.text);
-    if(response.error == null) {
+  void _registerUser() async {
+    ApiResponse response = await register(
+        nameController.text, emailController.text, passwordController.text);
+    if (response.error == null) {
       _saveAndRedirectToHome(response.data as User);
-    } 
-    else {
+    } else {
       setState(() {
         loading = !loading;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${response.error}')
-      ));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
     }
   }
 
@@ -46,7 +44,7 @@ class _RegisterState extends State<Register> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('token', user.token ?? '');
     await pref.setInt('userId', user.id ?? 0);
-       Navigator.of(context).pushReplacementNamed('/home_screen');
+    Navigator.of(context).pushReplacementNamed('/home_screen');
   }
 
   @override
@@ -62,46 +60,60 @@ class _RegisterState extends State<Register> {
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
           children: [
             TextFormField(
-              controller: nameController,
-              validator: (val) => val!.isEmpty ? 'Invalid name' : null,
-              decoration: kInputDecoration('Name')
+                controller: nameController,
+                validator: (val) => val!.isEmpty ? 'Invalid name' : null,
+                decoration: kInputDecoration('Name')),
+            const SizedBox(
+              height: 20,
             ),
-            const SizedBox(height: 20,),
             TextFormField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              validator: (val) => val!.isEmpty ? 'Invalid email address' : null,
-              decoration: kInputDecoration('Email')
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                validator: (val) =>
+                    val!.isEmpty ? 'Invalid email address' : null,
+                decoration: kInputDecoration('Email')),
+            const SizedBox(
+              height: 20,
             ),
-            const SizedBox(height: 20,),
             TextFormField(
-              controller: passwordController,
-              obscureText: true,
-              validator: (val) => val!.length < 6 ? 'Required at least 6 chars' : null,
-              decoration: kInputDecoration('Password')
+                controller: passwordController,
+                obscureText: true,
+                validator: (val) =>
+                    val!.length < 6 ? 'Required at least 6 chars' : null,
+                decoration: kInputDecoration('Password')),
+            const SizedBox(
+              height: 20,
             ),
-            const SizedBox(height: 20,),
             TextFormField(
-              controller: passwordConfirmController,
-              obscureText: true,
-              validator: (val) => val != passwordController.text ? 'Confirm password does not match' : null,
-              decoration: kInputDecoration('Confirm password')
+                controller: passwordConfirmController,
+                obscureText: true,
+                validator: (val) => val != passwordController.text
+                    ? 'Confirm password does not match'
+                    : null,
+                decoration: kInputDecoration('Confirm password')),
+            const SizedBox(
+              height: 20,
             ),
-            const SizedBox(height: 20,),
-            loading ? 
-              const Center(child: CircularProgressIndicator())
-            : kTextButton('Register', () {
-                if(formKey.currentState!.validate()){
-                  setState(() {
-                    loading = !loading;
-                    _registerUser();
-                  });
-                }
-              },
+            loading
+                ? const Center(child: CircularProgressIndicator())
+                : kTextButton(
+                    'Register',
+                    () {
+                      if (formKey.currentState!.validate()) {
+                        setState(() {
+                          loading = !loading;
+                          _registerUser();
+                        });
+                      }
+                    },
+                  ),
+            const SizedBox(
+              height: 20,
             ),
-            const SizedBox(height: 20,),
-            kLoginRegisterHint('Already have an account? ', 'Login', (){
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>const Login()), (route) => false);
+            kLoginRegisterHint('Already have an account? ', 'Login', () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const Login()),
+                  (route) => false);
             })
           ],
         ),
