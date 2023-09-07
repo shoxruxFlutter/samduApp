@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../services/user_service.dart';
-
 
 class Upload extends StatefulWidget {
   final String titleFile;
@@ -21,7 +21,7 @@ class _UploadState extends State<Upload> {
   String fileName = '';
   bool downloadSuccess = false;
   Response? response;
-  Dio dio =  Dio();
+  Dio dio = Dio();
   File? selectedfile;
   double progress = 0.0;
   String link = '';
@@ -40,15 +40,14 @@ class _UploadState extends State<Upload> {
     _checkFileExists();
   }
 
-Future<void> downloadFile() async {
-
+  Future<void> downloadFile() async {
     const url = "http://10.0.2.2:8000/api/downloadFile";
     String token = await getToken();
-    
+
     final params = {
       "category_file": widget.titleFile,
     };
- 
+
     final directory = await getExternalStorageDirectory();
 
     final filePath = '${directory?.path}/${widget.titleFile}.pdf';
@@ -64,98 +63,79 @@ Future<void> downloadFile() async {
         ),
         onReceiveProgress: (receivedBytes, totalBytes) {
           if (totalBytes != -1) {
-            setState(() {
-            });
+            setState(() {});
           }
         },
       );
 
- 
-    // ignore: empty_catches
-    } catch (e) {
- 
-    }
-
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
-Future upload() async {
+  Future upload() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      PlatformFile file = result.files.first;
+      String? filepath = file.path;
+      String? fileExtension = file.extension;
+      FormData data = FormData.fromMap({
+        "file": await MultipartFile.fromFile(
+          filepath!,
+          filename: '${widget.titleFile}.${fileExtension!}',
+          contentType: MediaType("image", "jpeg"),
+        ),
+        'category_file': widget.titleFile,
+      });
 
-  FilePickerResult? result = await FilePicker.platform.pickFiles();
-  if(result!=null){
-    PlatformFile file = result.files.first;
-    String? filepath = file.path;
-    String? fileExtension = file.extension;
-    FormData data = FormData.fromMap({
-      "file": await MultipartFile.fromFile(
-        filepath!,
-        filename: '${widget.titleFile}.${fileExtension!}',
-        contentType: MediaType("image", "jpeg"),),
-        'category_file': widget.titleFile,    
-   });
+      String token = await getToken();
 
-  String token = await getToken();
-   
 // ignore: unused_local_variable
-var response = await dio.post(
-"http://10.0.2.2:8000/api/upload-file", 
-data: data,
-options: Options(
-  headers: {'Authorization': 'Bearer $token'},
-  followRedirects: false,
-  validateStatus: (status) { return status! <= 500; }
-  
-),
- onSendProgress: (int sent, int total){
-  // print("$sent, $total");
-});
-setState(() {
-    _checkFileExists();
-  });
-}
-else{
-  // print("result null");
-}
+      var response = await dio.post("http://10.0.2.2:8000/api/upload-file",
+          data: data,
+          options: Options(
+              headers: {'Authorization': 'Bearer $token'},
+              followRedirects: false,
+              validateStatus: (status) {
+                return status! <= 500;
+              }), onSendProgress: (int sent, int total) {
+        // print("$sent, $total");
+      });
+      setState(() {
+        _checkFileExists();
+      });
+    } else {
+      // print("result null");
+    }
+  }
 
-}
+  void _checkFileExists() async {
+    String token = await getToken();
+    int teacherId = widget.teacherId;
+    String nameFile = widget.titleFile;
 
-void _checkFileExists() async {
-  String token = await getToken();
-  int teacherId = widget.teacherId;
-  String nameFile = widget.titleFile;
+    final response = await Dio().get(
+        'http://10.0.2.2:8000/api/checkingFile/$nameFile',
+        //'http://10.0.2.2:8000/api/checkingFile?$teacherId&category=$category',
 
-    
-        final response = await Dio().get(
-    'http://10.0.2.2:8000/api/checkingFile/$nameFile',  
-      //'http://10.0.2.2:8000/api/checkingFile?$teacherId&category=$category',  
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+          followRedirects: false,
+          validateStatus: (status) => true,
+          contentType: 'application/json',
+        ));
 
-    options: Options(
-        headers: {'Authorization': 'Bearer $token'},
-        followRedirects: false,
-        validateStatus: (status) => true,
-        contentType: 'application/json',
-    )
-      );
-
-
-     setState(() {
-      if (response.data == "true"){
-      _fileExists = true;
-      
+    setState(() {
+      if (response.data == "true") {
+        _fileExists = true;
       }
       if (_fileExists) {
         _fileName = '${widget.titleFile}.pdf';
       }
       print(_fileExists);
     });
+  }
 
-    }
-   
-    
-
-
-
-
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -181,8 +161,6 @@ void _checkFileExists() async {
                 onPressed: upload,
                 child: const Text('Upload'),
               ),
- 
-              
           ],
         ),
       ),
@@ -195,10 +173,10 @@ void _checkFileExists() async {
 //         backgroundColor: Colors.blue,
 //       ),
 //        body: ListView.builder(
-        
-//        padding: const EdgeInsets.all(15), 
+
+//        padding: const EdgeInsets.all(15),
 //        itemCount: category.length,
-//        itemBuilder: (BuildContext context, int index) { 
+//        itemBuilder: (BuildContext context, int index) {
 //         final fileName = category[index];
 //         final existFile =  _checkFileExists(fileName);
 
@@ -223,9 +201,7 @@ void _checkFileExists() async {
 //              ]
 //            );
 //        }
-   
-//       ),      
+
+//       ),
 //     );
-
-
 }

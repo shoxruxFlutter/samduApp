@@ -6,6 +6,7 @@ abstract class MainNavigationRouteNames {
   static const login = '/login';
   static const registration = '/registration';
   static const mainScreen = '/main_screen';
+  static const yuklamaScreen = '/main_screen/yuklama_screen';
 }
 
 class MainNavigation {
@@ -18,6 +19,22 @@ class MainNavigation {
         _screenFactory.makeRegistration(),
     MainNavigationRouteNames.mainScreen: (_) => _screenFactory.makeMainScreen(),
   };
+
+  Route<Object> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case MainNavigationRouteNames.yuklamaScreen:
+        final arguments = settings.arguments;
+        final userId = arguments is int ? arguments : 0;
+        final categoryFile = arguments is String ? arguments : '';
+        return MaterialPageRoute(
+          builder: (_) =>
+              _screenFactory.makeYuklamaScreen(userId, categoryFile),
+        );
+      default:
+        const widget = Text('Navigation error!!!');
+        return MaterialPageRoute(builder: (_) => widget);
+    }
+  }
 
   static void resetNavigation(BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(

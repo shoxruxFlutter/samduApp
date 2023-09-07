@@ -40,17 +40,17 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       body: IndexedStack(
         index: _selectedTab,
         children: [
-          _screenFactory.makeTeacherScreen(),
+          _screenFactory.makeYuklamaScreen(2, 'qwertyy'),
+          _screenFactory.makeAnketaScreen(),
           _screenFactory.makeAccountScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Yuklama'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Teacher',
-          ),
+              icon: Icon(Icons.face), label: "Anketa ma'lumotlari"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_box), label: 'Account'),
         ],

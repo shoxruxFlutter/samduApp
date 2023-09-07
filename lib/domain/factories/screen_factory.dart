@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:samduapp/ui/widgets/account_screen/account_screen_widget.dart';
+import 'package:samduapp/ui/widgets/anketa_screen/anketa_screen_widget.dart';
 import 'package:samduapp/ui/widgets/auth_screen/login_view_model.dart';
 import 'package:samduapp/ui/widgets/auth_screen/login_widget.dart';
 import 'package:samduapp/ui/widgets/auth_screen/registration_view_model.dart';
@@ -8,7 +9,8 @@ import 'package:samduapp/ui/widgets/auth_screen/registration_widget.dart';
 import 'package:samduapp/ui/widgets/loader_screen/loader_view_model.dart';
 import 'package:samduapp/ui/widgets/loader_screen/loader_widget.dart';
 import 'package:samduapp/ui/widgets/main_screen/main_screen_widget.dart';
-import 'package:samduapp/ui/widgets/teacher_screen/teacher_screen_widget.dart';
+import 'package:samduapp/ui/widgets/yuklama_screen/yuklama_screen_widget.dart';
+import 'package:samduapp/ui/widgets/yuklama_screen/yuklama_view_model.dart';
 
 class ScreenFactory {
   Widget makeLoader() {
@@ -37,8 +39,16 @@ class ScreenFactory {
     return const MainScreenWidget();
   }
 
-  Widget makeTeacherScreen() {
-    return const TeacherScreenWidget();
+  Widget makeYuklamaScreen(int userId, String categoryFile) {
+    return ChangeNotifierProvider(
+      create: (_) =>
+          YuklamaViewModel(categoryFile: categoryFile, userId: userId),
+      child: const YuklamaScreenWidget(),
+    );
+  }
+
+  Widget makeAnketaScreen() {
+    return const AnketaScreenWidget();
   }
 
   Widget makeAccountScreen() {

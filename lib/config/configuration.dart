@@ -5,6 +5,8 @@ const registerURL = '$baseURL/register';
 const logoutURL = '$baseURL/logout';
 const userURL = '$baseURL/user';
 
+const downloadYuklamaUrl = '$baseURL/downloadFile';
+
 // const postsURL = '$baseURL/posts';
 // const postFileURL = '$baseURL/post-file';
 // const commentsURL = '$baseURL/comments';

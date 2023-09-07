@@ -35,6 +35,26 @@ class NetworkClient {
     }
   }
 
+  Future<T> get<T>(String path, T Function(dynamic json) parser,
+      [Map<String, dynamic>? parametrs]) async {
+    final url = _makeUri(path, parametrs);
+    try {
+      final request = await _client.getUrl(url);
+      final response = await request.close();
+      final dynamic json = (await response.jsonDecode());
+
+      _validateResponse(response, json);
+      final result = parser(json);
+      return result;
+    } on SocketException {
+      throw ApiClientException(ApiClientExceptionType.network);
+    } on ApiClientException {
+      rethrow;
+    } catch (_) {
+      throw ApiClientException(ApiClientExceptionType.other);
+    }
+  }
+
   void _validateResponse(
       HttpClientResponse response, Map<String, dynamic> json) {
     if (response.statusCode == 401) {
