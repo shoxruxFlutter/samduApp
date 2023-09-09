@@ -39,10 +39,9 @@ class ScreenFactory {
     return const MainScreenWidget();
   }
 
-  Widget makeYuklamaScreen(int userId, String categoryFile) {
+  Widget makeYuklamaScreen() {
     return ChangeNotifierProvider(
-      create: (_) =>
-          YuklamaViewModel(categoryFile: categoryFile, userId: userId),
+      create: (_) => YuklamaViewModel(),
       child: const YuklamaScreenWidget(),
     );
   }

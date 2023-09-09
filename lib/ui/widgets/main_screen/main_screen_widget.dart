@@ -40,7 +40,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       body: IndexedStack(
         index: _selectedTab,
         children: [
-          _screenFactory.makeYuklamaScreen(2, 'qwertyy'),
+          _screenFactory.makeYuklamaScreen(),
           _screenFactory.makeAnketaScreen(),
           _screenFactory.makeAccountScreen(),
         ],

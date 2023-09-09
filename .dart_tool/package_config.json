@@ -20,12 +20,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "chunked_uploader",
-      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/chunked_uploader-1.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "clock",
       "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
@@ -416,12 +410,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "universal_io",
-      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/universal_io-2.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.15"
-    },
-    {
       "name": "url_launcher",
       "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.10",
       "packageUri": "lib/",
@@ -494,7 +482,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-09-07T05:55:07.603999Z",
+  "generated": "2023-09-09T03:47:43.610780Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

@@ -6,6 +6,7 @@ const logoutURL = '$baseURL/logout';
 const userURL = '$baseURL/user';
 
 const downloadYuklamaUrl = '$baseURL/downloadFile';
+const uploadYuklamaUrl = '$baseURL/upload-file';
 
 // const postsURL = '$baseURL/posts';
 // const postFileURL = '$baseURL/post-file';

@@ -23,12 +23,11 @@ class MainNavigation {
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case MainNavigationRouteNames.yuklamaScreen:
-        final arguments = settings.arguments;
-        final userId = arguments is int ? arguments : 0;
-        final categoryFile = arguments is String ? arguments : '';
+        // final arguments = settings.arguments;
+        // final userId = arguments is int ? arguments : 0;
+        // final categoryFile = arguments is String ? arguments : '';
         return MaterialPageRoute(
-          builder: (_) =>
-              _screenFactory.makeYuklamaScreen(userId, categoryFile),
+          builder: (_) => _screenFactory.makeYuklamaScreen(),
         );
       default:
         const widget = Text('Navigation error!!!');

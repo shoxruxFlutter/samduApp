@@ -8,29 +8,60 @@ class YuklamaApiClient {
     String categoryFile,
     String token,
   ) async {
-    final response = await http.get(
-        Uri.parse(
-            '$downloadYuklamaUrl?user_id=$userId&category_file=$categoryFile'),
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    try {
+      final response = await http.get(
+          Uri.parse(
+              '$downloadYuklamaUrl?user_id=$userId&category_file=$categoryFile'),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
 
-    if (response.statusCode == 200) {
-      final fileName = response.headers['content-disposition']
-          ?.split(';')
-          .last
-          .replaceAll('filename=', '')
-          .replaceAll('"', '');
+      if (response.statusCode == 200) {
+        final fileName = response.headers['content-disposition']
+            ?.split(';')
+            .last
+            .replaceAll('filename=', '')
+            .replaceAll('"', '');
 
-      var myPath = '/storage/emulated/0/Download/$fileName';
+        var myPath = '/storage/emulated/0/Download/$fileName';
 
-      final file = File(myPath);
-      await file.writeAsBytes(response.bodyBytes);
+        final file = File(myPath);
+        await file.writeAsBytes(response.bodyBytes);
+      }
+      print(response.statusCode);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<String?> uploadFile(
+    int userId,
+    String categoryFile,
+    String token,
+    File file,
+  ) async {
+    try {
+      final url = Uri.parse(
+          '$uploadYuklamaUrl?user_id=$userId&category_file=$categoryFile');
+      final request = http.MultipartRequest('POST', url);
+      request.headers['Authorization'] = 'Bearer $token';
+      request.headers['Content-Type'] = 'application/json';
+      final multipartFile =
+          await http.MultipartFile.fromPath('file', file.path);
+      request.files.add(multipartFile);
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 403) {
+        final error = response.body;
+        return error;
+      }
 
       print(response.statusCode);
-    } else {
-      print(response.statusCode);
+    } catch (e) {
+      print(e);
     }
   }
 }

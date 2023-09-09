@@ -12,4 +12,17 @@ class YuklamaService {
     final getToken = await _userToken.tokenUser;
     _yuklamaApiClient.downloadYuklama(userId, categoryFile, getToken!);
   }
+
+  Future<String?> uploadYuklama({
+    required String categoryFile,
+    required int userId,
+    required file,
+  }) async {
+    final getToken = await _userToken.tokenUser;
+    final error =
+        _yuklamaApiClient.uploadFile(userId, categoryFile, getToken!, file);
+    if (error != null) {
+      return error;
+    }
+  }
 }
