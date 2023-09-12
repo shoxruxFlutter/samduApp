@@ -1,4 +1,4 @@
-#Sat Sep 09 08:17:57 UZT 2023
+#Tue Sep 12 10:48:12 UZT 2023
 base.0=C\:\\Flutter_Project\\samduApp\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

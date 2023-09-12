@@ -58,10 +58,39 @@ class YuklamaApiClient {
         final error = response.body;
         return error;
       }
+      print(response.statusCode);
+      return response.body;
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
 
+  Future<String?> checkingFile(
+    int userId,
+    String categoryFile,
+    String token,
+  ) async {
+    try {
+      final response = await http.get(
+          Uri.parse(
+              '$downloadYuklamaUrl?user_id=$userId&category_file=$categoryFile'),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+
+      if (response.statusCode == 200) {
+        final result = response.body;
+        return result;
+      } else if (response.statusCode == 404) {
+        final result = response.body;
+        return result;
+      }
       print(response.statusCode);
     } catch (e) {
       print(e);
     }
+    return null;
   }
 }

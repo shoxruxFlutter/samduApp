@@ -2,8 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:samduapp/ui/widgets/yuklama_screen/yuklama_view_model.dart';
 
-class YuklamaScreenWidget extends StatelessWidget {
+class YuklamaScreenWidget extends StatefulWidget {
   const YuklamaScreenWidget({super.key});
+
+  @override
+  State<YuklamaScreenWidget> createState() => _YuklamaScreenWidgetState();
+}
+
+class _YuklamaScreenWidgetState extends State<YuklamaScreenWidget> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Future.microtask(
+      () => context.read<YuklamaViewModel>().initAsync(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

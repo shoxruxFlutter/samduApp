@@ -24,5 +24,14 @@ class YuklamaService {
     if (error != null) {
       return error;
     }
+    return null;
+  }
+
+  Future<String?> checkingYuklama({
+    required String categoryFile,
+    required int userId,
+  }) async {
+    final getToken = await _userToken.tokenUser;
+    _yuklamaApiClient.checkingFile(userId, categoryFile, getToken!);
   }
 }
