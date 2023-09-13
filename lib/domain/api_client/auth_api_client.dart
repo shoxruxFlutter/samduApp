@@ -1,5 +1,6 @@
 import 'package:samduapp/config/configuration.dart';
 import 'package:samduapp/domain/api_client/network_client.dart';
+import 'package:samduapp/domain/entity/user.dart';
 
 class AccountApiClient {
   // Future<ApiResponse> login(String email, String password) async {
@@ -33,14 +34,15 @@ class AccountApiClient {
 
   final _networkClient = NetworkClient();
 
-  Future<String> loginUser({
+  Future<User> loginUser({
     required String email,
     required String password,
   }) async {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      final token = jsonMap['token'] as String;
-      return token;
+      final user = User.fromJson(jsonMap);
+      // jsonMap['token'] as String;
+      return user;
     }
 
     final bodyParametrs = <String, dynamic>{
@@ -51,14 +53,14 @@ class AccountApiClient {
     return result;
   }
 
-  Future<String> registrationUser({
+  Future<User> registrationUser({
     required String name,
     required String email,
     required String password,
   }) async {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      final token = jsonMap['token'] as String;
+      final token = User.fromJson(jsonMap);
       return token;
     }
 

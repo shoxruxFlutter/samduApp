@@ -5,50 +5,149 @@ import 'package:flutter/material.dart';
 
 import 'package:samduapp/domain/services/yuklama_service.dart';
 
+class YuklamaViewModelFileTitle {
+  final String namunaviyTitle = 'namunaviy';
+  final String sillabusTitle = 'sillabus';
+  final String yuklamaTitle = 'yuklama';
+}
+
 class YuklamaViewModel extends ChangeNotifier {
-  late File _file = File('');
   final _yuklamaService = YuklamaService();
+  final categoryFile = YuklamaViewModelFileTitle();
+
+  bool _stateNamunaviy = false;
+  bool get stateNamunaviy => _stateNamunaviy;
+  bool get stateNamunaviyButton => !_stateNamunaviy;
+
+  bool _stateSillabus = false;
+  bool get stateSillabus => _stateSillabus;
+  bool get stateSillabusButton => !_stateSillabus;
+
+  bool _stateYuklama = false;
+  bool get stateYuklama => _stateYuklama;
+  bool get stateYuklamaButton => !_stateYuklama;
 
   YuklamaViewModel();
 
   Future<void> initAsync() async {
-    await uploadFile();
+    await checkingFile();
   }
 
-  Future<String?> checkingFile() async {
-    final result = await _yuklamaService.checkingYuklama(
-        categoryFile: 'qwerty', userId: 2);
-    return result;
+  Future<void> checkingFile() async {
+    await checkingYuklama();
+    await checkingNamunaviy();
+    await checkingSillabus();
   }
 
   Future<void> downloadYuklama() async {
     try {
       await _yuklamaService.downloadYuklama(
-        userId: 2,
-        categoryFile: 'qwerty',
-      );
+          categoryFile: categoryFile.yuklamaTitle);
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> pickFile() async {
+  Future<void> checkingYuklama() async {
+    try {
+      final resultCheck = await _yuklamaService.checkingFile(
+          categoryFile: categoryFile.yuklamaTitle);
+      if (resultCheck == true) {
+        _stateYuklama = true;
+        notifyListeners();
+      }
+    } catch (e) {
+      _stateNamunaviy = false;
+    }
+  }
+
+  Future<void> pickNamunaviyFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       final filePath = result.files.single.path;
-      _file = File(filePath!);
+      final file = File(filePath!);
 
-      await uploadFile();
+      await _uploadNamunaviy(file);
     }
   }
 
-  Future<void> uploadFile() async {
+  Future<void> _uploadNamunaviy(File file) async {
     try {
-      final error = await _yuklamaService.uploadYuklama(
-          userId: 2, categoryFile: 'qwerty', file: _file);
-      if (error != null) {}
-      ;
+      await _yuklamaService.uploadFile(
+          file: file, categoryFile: categoryFile.namunaviyTitle);
+      _stateNamunaviy = true;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> checkingNamunaviy() async {
+    try {
+      final resultCheck = await _yuklamaService.checkingFile(
+          categoryFile: categoryFile.namunaviyTitle);
+      if (resultCheck == true) {
+        _stateNamunaviy = true;
+        notifyListeners();
+      }
+    } catch (e) {
+      _stateNamunaviy = false;
+    }
+  }
+
+  Future<void> deleteNamunaviy() async {
+    try {
+      await _yuklamaService.deleteFile(
+          categoryFile: categoryFile.namunaviyTitle);
+      _stateNamunaviy = false;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> pickSillabusFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      final filePath = result.files.single.path;
+      final file = File(filePath!);
+
+      await _uploadSillabus(file);
+    }
+  }
+
+  Future<void> _uploadSillabus(File file) async {
+    try {
+      await _yuklamaService.uploadFile(
+          file: file, categoryFile: categoryFile.sillabusTitle);
+      _stateSillabus = true;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> checkingSillabus() async {
+    try {
+      final resultCheck = await _yuklamaService.checkingFile(
+          categoryFile: categoryFile.sillabusTitle);
+      if (resultCheck == true) {
+        _stateSillabus = true;
+        notifyListeners();
+      }
+    } catch (e) {
+      _stateNamunaviy = false;
+    }
+  }
+
+  Future<void> deleteSillabus() async {
+    try {
+      await _yuklamaService.deleteFile(
+          categoryFile: categoryFile.sillabusTitle);
+      _stateSillabus = false;
+      notifyListeners();
     } catch (e) {
       print(e);
     }

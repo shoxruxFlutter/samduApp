@@ -1,6 +1,5 @@
 import 'package:samduapp/domain/api_client/auth_api_client.dart';
 import 'package:samduapp/domain/data_providers/session_data_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   final _accountApiClient = AccountApiClient();
@@ -13,19 +12,19 @@ class AuthService {
   }
 
   Future<void> login(String email, String password) async {
-    final userToken =
+    final user =
         await _accountApiClient.loginUser(email: email, password: password);
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    await pref.setString('token', userToken);
-    await _sessionDataProvider.setTokenUser(userToken);
+    await _sessionDataProvider.setTokenUser(user.token);
+    await _sessionDataProvider.setUserId(user.id);
   }
 
   Future<void> registration(String name, String email, String password) async {
-    final userToken = await _accountApiClient.registrationUser(
+    final user = await _accountApiClient.registrationUser(
       name: name,
       email: email,
       password: password,
     );
-    await _sessionDataProvider.setTokenUser(userToken);
+    await _sessionDataProvider.setTokenUser(user.token);
+    await _sessionDataProvider.setUserId(user.id);
   }
 }

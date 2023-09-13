@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:samduapp/config/configuration.dart';
@@ -35,7 +36,7 @@ class YuklamaApiClient {
     }
   }
 
-  Future<String?> uploadFile(
+  Future<void> uploadFile(
     int userId,
     String categoryFile,
     String token,
@@ -54,16 +55,10 @@ class YuklamaApiClient {
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      if (response.statusCode == 403) {
-        final error = response.body;
-        return error;
-      }
       print(response.statusCode);
-      return response.body;
     } catch (e) {
       print(e);
     }
-    return null;
   }
 
   Future<String?> checkingFile(
@@ -81,16 +76,42 @@ class YuklamaApiClient {
           });
 
       if (response.statusCode == 200) {
-        final result = response.body;
-        return result;
-      } else if (response.statusCode == 404) {
-        final result = response.body;
-        return result;
+        const res = 'File exist';
+        return res;
+      } else {
+        return null;
       }
-      print(response.statusCode);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<void> deleteNamunaviyFile(
+    int userId,
+    String categoryFile,
+    String token,
+  ) async {
+    try {
+      final res = await http.get(
+          Uri.parse(
+              '$deleteNamunaviy?user_id=$userId&category_file=$categoryFile'),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          });
+
+      print(res.statusCode);
     } catch (e) {
       print(e);
     }
-    return null;
+  }
+}
+
+extension HttpClientResponseJsonDecode on HttpClientResponse {
+  Future<dynamic> jsonDecode() async {
+    return transform(utf8.decoder).toList().then((value) {
+      final result = value.join();
+      return result;
+    }).then<dynamic>((v) => json.decode(v));
   }
 }
